@@ -1,66 +1,181 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel API Project: Country Details and States
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+This is a Laravel API project that leverages a 3rd-party API to retrieve and display details about a specific country, including its basic information and a list of its states or provinces. This README file will guide you through the setup and usage of this API project.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Table of Contents
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+  - [Clone the Repository](#clone-the-repository)
+  - [Install Dependencies](#install-dependencies)
+  - [Environment Configuration](#environment-configuration)
+  - [Database Setup](#database-setup)
+  - [Running the Application](#running-the-application)
+- [API Endpoints](#api-endpoints)
+  - [Get Country Details](#get-country-details)
+  - [Get States of a Country](#get-states-of-a-country)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Prerequisites
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Before you begin, ensure you have met the following requirements:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP 8.0 or higher
+- Composer (https://getcomposer.org/)
+- Laravel (https://laravel.com/docs/8.x/installation)
+- MySQL or another compatible database system
 
-## Laravel Sponsors
+## Getting Started
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Follow these steps to get the Laravel API project up and running on your local development environment.
 
-### Premium Partners
+### Clone the Repository
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+```bash
+git clone https://github.com/JsmediaGP/3rdpartyAPI.git
+cd 3rdpartyAPI
+```
 
-## Contributing
+### Install Dependencies
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Run the following command to install the project dependencies:
 
-## Code of Conduct
+```bash
+composer install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Environment Configuration
 
-## Security Vulnerabilities
+Create a copy of the `.env.example` file and rename it to `.env`. Update the database and other relevant environment variables in the `.env` file.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+cp .env.example .env
+```
 
-## License
+### Database Setup
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. Create a new database in your MySQL server for this project.
+2. Update the `DB_DATABASE`, `DB_USERNAME`, and `DB_PASSWORD` variables in the `.env` file with your database configuration.
+
+Next, run the following command to migrate the database tables:
+
+```bash
+php artisan migrate
+```
+
+### Running the Application
+
+You can start the development server using the following command:
+
+```bash
+php artisan serve
+```
+
+Your Laravel application will be available at `http://localhost:8000`.
+
+## API Endpoints
+
+This Laravel API provides the following endpoints:
+
+### Get Country Details
+
+**Endpoint:** `/country/details/{country}`
+
+**Method:** GET
+
+**Example Request:**
+
+```http
+GET /api/country/details/Nigeria
+```
+
+**Example Response:**
+
+```json
+
+[
+    {
+        "Population": 206139587,
+        "Capital City": [
+            "Abuja"
+        ],
+        "Currency": {
+            "NGN": {
+                "name": "Nigerian naira",
+                "symbol": "₦"
+            }
+        },
+        "Location": [
+            10,
+            8
+        ],
+        "ISO2": "NG",
+        "ISO3": "NGA"
+    }
+]
+```
+
+### Get States of a Country
+
+**Endpoint:** `/api/country/states`
+
+**Method:** GET
+
+**Description:** 
+Send a GET request to the `/api/country/states` endpoint with the following parameters:
+
+- `country`: accept the name of the country.
+
+
+**Example Request:**
+
+```json
+POST /api/country/states
+Content-Type: application/json
+
+{
+    "country": "Nigeria"
+}
+```
+
+
+**Example Response:**
+
+```json
+    {
+        "error": false,
+        "msg": "states in Nigeria retrieved",
+        "data": {
+            "name": "Nigeria",
+            "iso3": "NGA",
+            "iso2": "NG",
+            "states": [
+                {
+                    "name": "Abia State",
+                    "state_code": "AB"
+                },
+                {
+                    "name": "Adamawa State",
+                    "state_code": "AD"
+                },
+                {
+                    "name": "Akwa Ibom State",
+                    "state_code": "AK"
+                },
+                {
+                    "name": "Anambra State",
+                    "state_code": "AN"
+                },
+                {
+                    "name": "Bauchi State",
+                    "state_code": "BA"
+                },
+                
+
+                // ... more states ...
+                
+            ]
+        }
+    }

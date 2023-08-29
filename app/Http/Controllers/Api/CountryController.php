@@ -20,14 +20,13 @@ class CountryController extends Controller
 
         return response()->json($filterCountry);
 
-        //return $country;
-       // return response()->json($countryInfo);
+ 
 
     }
     function filteredCountry($country){
         $filteredCountry = [];
         foreach ($country as $item) {
-            // Extract the specific fields you want
+            
             $filteredItem = [
                 'Population' => $item['population'],
                 'Capital City' => $item['capital'],
@@ -35,7 +34,7 @@ class CountryController extends Controller
                 'Location' => $item['latlng'],
                 'ISO2'=> $item['cca2'],
                 'ISO3'=> $item['cca3']
-                // Add more fields as needed
+               
             ];
     
             $filteredCountry[] = $filteredItem;
@@ -48,25 +47,34 @@ class CountryController extends Controller
     }
 
 
-    function countryStates($country){
+    public function citiesByCountry(Request $request)
+    {
+        $countryName = $request->input('country'); 
 
-        $response = Http::get("https://countriesnow.space/api/v0.1/$country/states");
-        $data = $response->json();
+//        $apiUrl = 'https://countriesnow.space/api/v0.1/countries/cities';
 
-        if (empty($data)) {
-            return response()->json(['message' => 'Country not found'], 404);
-        }
+        $link = 'https://countriesnow.space/api/v0.1/countries/states';
+        $Data = [
+          //  'country' => 'Nigeria',
+            'country' => $countryName,
+        ];
+
+    
+        $response = Http::post($link, $Data);
+
         
+        if ($response->successful()) {
+        
+            $data = $response->json();
 
-        // $states = $data[0]['states'] ?? [];
-
-        // $countryDetails = [
-        //     'states' => $states,
-        // ];
-
-        return response()->json($data);
-
+            
+            return response()->json($data);
+        } else {
+            
+            return response()->json(['error' => 'Failed to fetch data from the API'], $response->status());
+        }
     }
+
 }
 
 
